@@ -44,7 +44,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // offset - 배열의 0번부터 시작, 카메라 위치, 카메라 시선, 카메라 윗방향
         Matrix.setLookAtM(mViewMatrix,0,
-                0,0,-3, // 카메라 위치
+                0,0,3, // 카메라 위치
                 0,0,0, // 카메라 시선
                 0,1,0); // 카메라 윗방향
 

@@ -40,7 +40,8 @@ public class Square {
     // 색깔 (빨간색에 가까운 색)
     float [] color = {1.0f, 0.5f, 0.3f, 1.0f };
 
-    // 그리는 순서.
+    // 그리는 순서. 점의 위치를 반시계방향을 맞춰야한다
+    // squareCoords 의 위에서부터 0,1,2 순서
     short [] drawOrder =  {
             0,1,2,
             0,2,3
