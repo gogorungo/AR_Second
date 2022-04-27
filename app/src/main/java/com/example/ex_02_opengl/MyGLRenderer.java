@@ -1,5 +1,6 @@
 package com.example.ex_02_opengl;
 
+import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -9,17 +10,28 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
     
-    Square myBox;
-    
-    float [] mMVPMatrix = new float[16]; // 통합
+//    Square myBox;
+
+    ObjRenderer myTable;
+
+    float [] mMVPMatrix = new float[16]; // 통합, 3D 사각형이라 16개 지정
     float [] mProjectionMatrix = new float[16]; // 2D 뷰 포트. 사물 속성
     float [] mViewMatrix = new float[16]; // 카메라 시점
+
+    MyGLRenderer(Context context){
+//        myTable = new ObjRenderer(context,"table.obj","table.jpg");
+        myTable = new ObjRenderer(context,"Corona.obj","BotellaText.jpg");
+    }
+
+
     
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         GLES20.glClearColor(0.0f,1.0f,1.0f,1.0f);
-        
-        myBox = new Square();
+
+        myTable.init();
+
+//        myBox = new Square();
     }
 
     // 화면 갱신되면서 화면에서 배치
@@ -32,7 +44,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         float ratio = (float) width / height;
 
         // offset - 배열의 0번부터 시작
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1,1,3,7);
+        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1,1,1,200);
 
     }
 
@@ -44,14 +56,23 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // offset - 배열의 0번부터 시작, 카메라 위치, 카메라 시선, 카메라 윗방향
         Matrix.setLookAtM(mViewMatrix,0,
-                0,0,3, // 카메라 위치
-                0,0,0, // 카메라 시선
+                -10,-100 ,100, // 카메라 위치
+                0,0,50, // 카메라 시선
                 0,1,0); // 카메라 윗방향
 
-        Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0,mViewMatrix,0);
+//        Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0,mViewMatrix,0);
+
         
         //정사각형 그리기
-        myBox.draw(mMVPMatrix);
+//        myBox.draw(mMVPMatrix);
+
+        Matrix.setIdentityM(mMVPMatrix, 0);
+
+        myTable.setProjectionMatrix(mProjectionMatrix);
+        myTable.setViewMatrix(mViewMatrix);
+        myTable.setModelMatrix(mMVPMatrix);
+
+        myTable.draw();
     }
 
 

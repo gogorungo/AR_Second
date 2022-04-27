@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
+import java.util.ArrayList;
 
 public class Square {
 
@@ -35,7 +36,10 @@ public class Square {
             -0.5f, -0.5f, 0.0f, // 왼쪽 아래
             0.5f, -0.5f, 0.0f, // 오른쪽 아래
             0.5f, 0.5f, 0.0f // 오른쪽 위
+
     };
+
+
 
     // 색깔 (빨간색에 가까운 색)
     float [] color = {1.0f, 0.5f, 0.3f, 1.0f };
@@ -46,6 +50,8 @@ public class Square {
             0,1,2,
             0,2,3
     };
+
+
 
     FloatBuffer vertexBuffer;
     ShortBuffer drawBuffer;
